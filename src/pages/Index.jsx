@@ -43,19 +43,23 @@ const Index = () => {
         </Flex>
       </VStack>
 
-      <Slide direction="bottom" in={selectedProject !== null} style={{ zIndex: 10 }}>
-        <Box p={4} borderTopWidth={1} borderColor={accent} bg={secondary}>
-          <Flex alignItems="center" justifyContent="space-between">
-            <Text fontWeight="bold" fontSize="xl">
-              {selectedProject?.name}
-            </Text>
-            <IconButton icon={<FaTimes />} onClick={() => setSelectedProject(null)} aria-label="Close Project" variant="ghost" />
-          </Flex>
-          <Box mt={4} className="iframe-container">
-            <iframe title={selectedProject?.name} src={selectedProject?.url} width="100%" height="100%" />
+      {selectedProject && (
+        <Box p={8} display="flex" justifyContent="center">
+          <Box maxW="sm" borderWidth={1} borderRadius="lg" overflow="hidden" bg={secondary}>
+            <Box p={4}>
+              <Flex alignItems="center" justifyContent="space-between">
+                <Text fontWeight="bold" fontSize="xl">
+                  {selectedProject.name}
+                </Text>
+                <IconButton icon={<FaTimes />} onClick={() => setSelectedProject(null)} aria-label="Close Project" variant="ghost" />
+              </Flex>
+            </Box>
+            <Box p={4} className="iframe-container">
+              <iframe title={selectedProject.name} src={selectedProject.url} width="100%" height="100%" />
+            </Box>
           </Box>
         </Box>
-      </Slide>
+      )}
 
       <VStack p={8} spacing={4}>
         <Heading size="lg" color={primary}>
