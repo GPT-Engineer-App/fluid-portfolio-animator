@@ -22,39 +22,33 @@ const Index = () => {
 
   return (
     <Box bg={bg} color={color} minH="100vh">
-      <Flex p={4} alignItems="center">
-        <Heading size="lg">Henry Nicholson</Heading>
+      <Flex p={4} alignItems="center" bg={`linear-gradient(to right, ${secondary}, ${primary})`}>
+        <Heading size="lg" color={accent}>
+          Henry Nicholson
+        </Heading>
         <Spacer />
         <IconButton icon={isOpen ? <FaTimes /> : <FaBars />} variant="ghost" onClick={onToggle} display={{ md: "none" }} aria-label="Toggle Navigation" />
-        <HStack spacing={4} display={{ base: "none", md: "flex" }}>
-          {projects.map((project) => (
-            <Link key={project.name} onClick={() => setSelectedProject(project)}>
-              {project.name}
-            </Link>
-          ))}
-        </HStack>
       </Flex>
 
-      <Collapse in={isOpen} animateOpacity>
-        <VStack p={4} spacing={4} align="stretch">
+      <VStack p={8} spacing={8} align="stretch">
+        <Heading size="xl" textAlign="center" color={primary}>
+          Projects
+        </Heading>
+        <Flex flexWrap="wrap" justifyContent="center">
           {projects.map((project) => (
-            <Link
-              key={project.name}
-              onClick={() => {
-                setSelectedProject(project);
-                onToggle();
-              }}
-            >
+            <Button key={project.name} onClick={() => setSelectedProject(project)} m={2} colorScheme="teal" size="lg">
               {project.name}
-            </Link>
+            </Button>
           ))}
-        </VStack>
-      </Collapse>
+        </Flex>
+      </VStack>
 
       <Slide direction="bottom" in={selectedProject !== null} style={{ zIndex: 10 }}>
-        <Box p={4} borderTopWidth={1} borderColor={accent}>
+        <Box p={4} borderTopWidth={1} borderColor={accent} bg={secondary}>
           <Flex alignItems="center" justifyContent="space-between">
-            <Text fontWeight="bold">{selectedProject?.name}</Text>
+            <Text fontWeight="bold" fontSize="xl">
+              {selectedProject?.name}
+            </Text>
             <IconButton icon={<FaTimes />} onClick={() => setSelectedProject(null)} aria-label="Close Project" variant="ghost" />
           </Flex>
           <Box mt={4} className="iframe-container">
@@ -63,17 +57,28 @@ const Index = () => {
         </Box>
       </Slide>
 
-      <HStack p={4} spacing={4} justify="center">
-        <Link href="https://www.linkedin.com/in/yourprofile" isExternal>
-          <Button colorScheme="blue">LinkedIn</Button>
-        </Link>
-        <Link href="https://www.instagram.com/yourprofile" isExternal>
-          <Button colorScheme="pink">Instagram</Button>
-        </Link>
-        <Link href="mailto:youremail@example.com">
-          <Button colorScheme="teal">Email</Button>
-        </Link>
-      </HStack>
+      <VStack p={8} spacing={4}>
+        <Heading size="lg" color={primary}>
+          Connect with Me
+        </Heading>
+        <HStack spacing={4} justify="center">
+          <Link href="https://www.linkedin.com/in/yourprofile" isExternal>
+            <Button colorScheme="blue" size="lg">
+              LinkedIn
+            </Button>
+          </Link>
+          <Link href="https://www.instagram.com/yourprofile" isExternal>
+            <Button colorScheme="pink" size="lg">
+              Instagram
+            </Button>
+          </Link>
+          <Link href="mailto:youremail@example.com">
+            <Button colorScheme="teal" size="lg">
+              Email
+            </Button>
+          </Link>
+        </HStack>
+      </VStack>
     </Box>
   );
 };
